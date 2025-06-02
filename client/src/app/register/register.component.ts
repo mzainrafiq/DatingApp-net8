@@ -1,6 +1,7 @@
 import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class RegisterComponent {
   private accountService = inject(AccountService);
   //usersFromHomeComponent = input.required<any>(); // using new way, not by tradational decorators
   //@Output() cancelRegister = new EventEmitter();  // old syntax for EventEmitter that uses decorators
+  private toastr = inject(ToastrService);
   cancelRegister = output<boolean>();
   model: any = {}
 
@@ -22,8 +24,8 @@ export class RegisterComponent {
         console.log(response);
         this.cancel();
       },
-      error: error => console.log(error)
-    });
+      error: error => this.toastr.error(error.error)
+    })
   }
 
   cancel() {
