@@ -18,7 +18,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             {path: 'members',component: MemberListComponent},
-            {path: 'members/:id',component: MemberDetailComponent},
+            {path: 'members/:username',component: MemberDetailComponent},
             {path: 'lists',component: ListsComponent},    // i.e, localhost:4200/lists
             {path: 'messages',component: MessagesComponent},
         ]
@@ -26,5 +26,6 @@ export const routes: Routes = [
     {path: 'errors', component: TestErrorsComponent},
     {path: 'not-found', component: NotFoundComponent},
     {path: 'server-error', component: ServerErrorComponent},
-    {path: '**',component: HomeComponent, pathMatch: 'full'},
+    {path: '**',component: HomeComponent, pathMatch: 'full'}, // Wildcard route is typically used as a fallback for any undefined or incorrect routes, 
+                // and in your case, it redirects to the HomeComponent if no other routes match.
 ];

@@ -1,22 +1,17 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RegisterComponent } from "../register/register.component";
-import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RegisterComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  imports: [RegisterComponent]
 })
-export class HomeComponent implements OnInit{
-  http = inject(HttpClient);
+export class HomeComponent {
   registerMode = false;
-  users: any;
-
-  ngOnInit(): void {
-    this.getUsers();
-  }
+  private toastr = inject(ToastrService);
 
   registerToggle() {
     this.registerMode = !this.registerMode;
@@ -25,12 +20,9 @@ export class HomeComponent implements OnInit{
   cancelRegisterMode(event: boolean) {
     this.registerMode = event;
   }
-
-  getUsers() {
-     this.http.get('https://localhost:5001/api/users').subscribe({
-      next: response => this.users = response,
-      error: error=> console.log(error),
-      complete: () => console.log('Request has completed')
-    })
+  registerSuccessMode(event: string) {
+    console.log(event);
+    //this.registerMode = false;
+    this.toastr.success(event); // Display the success message using Toastr
   }
 }
