@@ -16,14 +16,14 @@ export class RegisterComponent {
   //@Output() cancelRegister = new EventEmitter();  // old syntax for EventEmitter that uses decorators
   private toastr = inject(ToastrService);
   cancelRegister = output<boolean>();
-  //RegisterSuccess = output<string>();
+  RegisterSuccess = output<string>();
   model: any = {}
 
   register() {
     this.accountService.register(this.model).subscribe({
       next: response => {
         console.log(response);
-        //this.success();
+        this.success();
         this.toastr.success('Registration successful');
         //this.usersFromHomeComponent = response; // using new way, not by tradational decorators
         //this.cancelRegister.emit(false); // old syntax for EventEmitter that uses decorators
@@ -38,7 +38,7 @@ export class RegisterComponent {
     this.cancelRegister.emit(false);
   }
 
-  // success() {
-  //   this.RegisterSuccess.emit('Registration successful');
-  // }
+  success() {
+    this.RegisterSuccess.emit('Registration successful');
+  }
 }
